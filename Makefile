@@ -6,3 +6,6 @@ publish:
 
 lint:
 	npx eslint .
+
+run1:
+	gendiff file1.json file2.json
