@@ -1,11 +1,14 @@
-import fs from 'fs';
 import yaml from 'js-yaml';
 
-const readFile = {
-  json: (path) => JSON.parse(fs.readFileSync(path, 'utf-8')),
-  yaml: (path) => yaml.load(fs.readFileSync(path, 'utf-8')),
+const getExtension = (data, format) => {
+  switch (format) {
+    case 'json':
+      return JSON.parse(data);
+    case 'yml':
+    case 'yaml':
+      return yaml.load(data);
+    default:
+      throw new Error(`Unknown parsing format '${format}`);
+  }
 };
-
-const parser = (path, extension) => readFile[extension](path);
-
-export default parser;
+export default getExtension;

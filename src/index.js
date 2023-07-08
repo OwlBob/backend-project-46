@@ -1,37 +1,40 @@
-import _ from 'lodash';
-import parser from './forParsers.js';
-import { getAbsPath, getExtension } from './forPathFile.js';
+import path from 'path';
+import { readFileSync } from 'fs';
+import getExtension from './forParsers.js';
+import makeAstTree from './makeAstTree.js';
 
-const genDiff = (filepath1, filepath2) => {
-  const [absPath1, absPath2] = [filepath1, filepath2].map(getAbsPath);
-  const [extension1, extension2] = [absPath1, absPath2].map(getExtension);
+// проблема с process.cwd(), не попадает в папку __fixtures__
+const getAbsPath = (pathToFile) => readFileSync(path.resolve(`__fixtures__/${pathToFile}`));
+const genDiff = (pathToFile1, pathToFile2) => {
+  // формирование расширения
+  const extension1 = path.extname(pathToFile1).slice(1);
+  const extension2 = path.extname(pathToFile2).slice(1);
 
-  const [data1, data2] = [parser(absPath1, extension1), parser(absPath2, extension2)];
+  // формирование абсолютного пути
+  const obj1 = getAbsPath(pathToFile1);
+  const obj2 = getAbsPath(pathToFile2);
 
-  const [keys1, keys2] = [Object.keys(data1), Object.keys(data2)];
-  const uniqueKeys = _.sortBy(_.uniq([...keys1, ...keys2]));
+  // сборка объектов
+  const parsedObj1 = getExtension(obj1, extension1);
+  const parsedObj2 = getExtension(obj2, extension2);
 
-  const result = uniqueKeys.reduce((acc, key) => {
-    const [value1, value2] = [data1[key], data2[key]];
+  // создание единого объекта, запись изменений через добавления свойства status
+  const obj = makeAstTree(parsedObj1, parsedObj2);
 
-    if (_.has(data1, key) && _.has(data2, key)) {
-      if (value1 === value2) {
-        return `${acc}\n    ${key}: ${value1}`;
-      }
+  // итоговая сборка
+  const result = obj.map((node) => {
+    if (node.status === 'unchanged') {
+      return (`    ${node.key}: ${node.value}`);
     }
 
-    if (!_.has(data1, key) && _.has(data2, key)) { // подумать, как сделать без отрицания
-      return `${acc}\n  + ${key}: ${value2}`;
+    if (node.status === 'updated') {
+      return (`  - ${node.key}: ${node.value1}\n  + ${node.key}: ${node.value2}`);
     }
 
-    if (_.has(data1, key) && !_.has(data2, key)) { // подумать, как сделать без отрицания
-      return `${acc}\n  - ${key}: ${value1}`;
-    }
+    return (`${node.status === 'deleted' ? '  -' : '  +'} ${node.key}: ${node.value}`);
+  }).join('\n');
 
-    return `${acc}\n  - ${key}: ${value1}\n  + ${key}: ${value2}`;
-  }, '');
-
-  return `{${result}\n}`;
+  return `{\n${result}\n}`;
 };
 
 export default genDiff;
