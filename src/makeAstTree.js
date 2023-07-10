@@ -10,17 +10,17 @@ const makeAstTree = (obj1, obj2) => {
   const objTree = keys.map((key) => {
     // рекурсия: проверка на вложение и идентичность
     if (isNested(obj1[key], obj2[key])) {
-      return { name: key, children: makeAstTree(obj1[key], obj2[key]), type: 'nested' };
+      return { key, children: makeAstTree(obj1[key], obj2[key]), status: 'nested' };
     }
     // если в первом объекте нет этого ключа
-    if (!_.has(obj1, key)) {
+    if (!Object.hasOwn(obj1, key)) {
       return { key, status: 'added', value: obj2[key] };
     }
     // если в первом объекте он есть, а во втором отсутствует
-    if (!_.has(obj2, key)) {
+    if (!Object.hasOwn(obj2, key)) {
       return { key, status: 'deleted', value: obj1[key] };
     }
-    // если ы обоих объектах присутствует отдин и тот же ключ
+    // если в обоих объектах присутствует отдин и тот же ключ
     if (obj1[key] === obj2[key]) {
       return { key, status: 'unchanged', value: obj1[key] };
     }
