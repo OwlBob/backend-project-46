@@ -1,6 +1,6 @@
 import path from 'path';
 import { readFileSync } from 'fs';
-import getExtension from './forParsers.js';
+import getExtension from './parsers.js';
 import makeAstTree from './makeAstTree.js';
 
 // проблема с process.cwd(), не попадает в папку __fixtures__
