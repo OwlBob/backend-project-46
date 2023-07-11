@@ -12,9 +12,22 @@ const readFile = (filename) =>
   fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 const testJsonFile= readFile('result.txt');
-const file1 = './__fixtures__/file1.json';
-const file2 = './__fixtures__/file2.json';
+const fileJson1 = './__fixtures__/file1.json';
+const fileJson2 = './__fixtures__/file2.json';
 
-test('genDiff', () => {
-  expect(genDiff(file1, file2)).toEqual(testJsonFile);
+const testYmlFile= readFile('result.txt');
+const fileYml1 = './__fixtures__/file1.yml';
+const fileYml2 = './__fixtures__/file2.yml';
+
+
+test('genDiff JSON', () => {
+  expect(genDiff(fileJson1, fileJson2)).toEqual(testJsonFile);
+});
+
+test('genDiff YML', () => {
+  expect(genDiff(fileYml1, fileYml2)).toEqual(testYmlFile);
+});
+
+test('genDiff JSON & YML', () => {
+  expect(genDiff(fileJson1, fileYml2)).toEqual(testYmlFile);
 });
