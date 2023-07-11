@@ -7,5 +7,8 @@ publish:
 lint:
 	npx eslint .
 
-run1:
-	gendiff file1.json file2.json
+test:
+	NODE_OPTIONS=--experimental-vm-modules npx jest
+
+test-coverage:
+	NODE_OPTIONS=--experimental-vm-modules npx jest --coverage --coverageProvider=v8
