@@ -17,7 +17,6 @@ const testYmlFile = readFile('result.txt');
 const fileYml1 = './__fixtures__/file1.yml';
 const fileYml2 = './__fixtures__/file2.yml';
 
-
 test('genDiff JSON', () => {
   expect(genDiff(fileJson1, fileJson2)).toEqual(testJsonFile);
 });
