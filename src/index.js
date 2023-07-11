@@ -4,7 +4,8 @@ import getExtension from './forParsers.js';
 import makeAstTree from './makeAstTree.js';
 
 // проблема с process.cwd(), не попадает в папку __fixtures__
-const getAbsPath = (pathToFile) => readFileSync(path.resolve(`__fixtures__/${pathToFile}`));
+const getPath = (filepath) => path.resolve(process.cwd(), filepath);
+const getAbsPath = (filepath) => readFileSync(getPath(filepath), 'utf8');
 const genDiff = (pathToFile1, pathToFile2) => {
   // формирование расширения
   const extension1 = path.extname(pathToFile1).slice(1);
