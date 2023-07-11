@@ -6,9 +6,7 @@ const isNested = (value1, value2) => _.isObject(value1) && _.isObject(value2);
 // Сравнение с первым объектом
 const makeAstTree = (obj1, obj2) => {
   // Сортировка
-  const key1 = Object.keys(obj1);
-  const key2 = Object.keys(obj2);
-  const keys = _.sortBy(_.union(key1, key2));
+  const keys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
   const objTree = keys.map((key) => {
     // рекурсия: проверка на вложение и идентичность
     if (isNested(obj1[key], obj2[key])) {

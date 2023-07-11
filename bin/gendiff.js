@@ -6,9 +6,11 @@ program
   .name('gendiff')
   .description('Compares two configuration files and shows a difference.')
   .version('1.0.3')
-  .option('-f, --format <type>', 'output format')
+  .option('-f, --format <type>', 'output format', 'stylish')
   .arguments('<filepath1>')
   .arguments('<filepath2>')
-  .action((filepath1, filepath2) => console.log(genDiff(filepath1, filepath2)));
+  .action((filepath1, filepath2) => {
+    const result = genDiff(filepath1, filepath2);
+    console.log(result)});
 
 program.parse();
