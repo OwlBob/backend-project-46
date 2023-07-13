@@ -3,8 +3,11 @@
 
 
 
-### Сравнение плоских файлов формат json:
+### Сравнение плоских файлов, формат json:
 [![asciicast](https://asciinema.org/a/3yfTaYbPAbElp2WRavYVpCrpY.svg)](https://asciinema.org/a/3yfTaYbPAbElp2WRavYVpCrpY)
 
-### Сравнение плоских файлов форматы json и yml:
+### Сравнение плоских файлов, форматы json и yml:
 [![asciicast](https://asciinema.org/a/vw97apT03LRNTGD4AfD8MhYZp.svg)](https://asciinema.org/a/vw97apT03LRNTGD4AfD8MhYZp)
+
+### Сравнение файлов с вложенной структурой, форматы json и yaml:
+[![asciicast](https://asciinema.org/a/XgHq359QjMaGd8V70XbqIDU5r.svg)](https://asciinema.org/a/XgHq359QjMaGd8V70XbqIDU5r)

@@ -9,22 +9,34 @@ const __dirname = path.dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-const testJsonFile = readFile('result.txt');
+const testFile = readFile('result.txt');
 const fileJson1 = './__fixtures__/file1.json';
 const fileJson2 = './__fixtures__/file2.json';
-
-const testYmlFile = readFile('result.txt');
 const fileYml1 = './__fixtures__/file1.yml';
 const fileYml2 = './__fixtures__/file2.yml';
 
+const testNested = readFile('resultNested.txt');
+const fileJson3 = './__fixtures__/file3.json';
+const fileJson4 = './__fixtures__/file4.json';
+const fileYml3 = './__fixtures__/file3.yaml';
+const fileYml4 = './__fixtures__/file4.yaml';
+
 test('genDiff JSON', () => {
-  expect(genDiff(fileJson1, fileJson2)).toEqual(testJsonFile);
+  expect(genDiff(fileJson1, fileJson2)).toEqual(testFile);
 });
-
 test('genDiff YML', () => {
-  expect(genDiff(fileYml1, fileYml2)).toEqual(testYmlFile);
+  expect(genDiff(fileYml1, fileYml2)).toEqual(testFile);
+});
+test('genDiff JSON & YML', () => {
+  expect(genDiff(fileJson1, fileYml2)).toEqual(testFile);
 });
 
-test('genDiff JSON & YML', () => {
-  expect(genDiff(fileJson1, fileYml2)).toEqual(testYmlFile);
+test('genDiff JSON nested files', () => {
+  expect(genDiff(fileJson3, fileJson4)).toEqual(testNested);
+});
+test('genDiff YML nested files', () => {
+  expect(genDiff(fileYml3, fileYml4)).toEqual(testNested);
+});
+test('genDiff JSON & YML nested files', () => {
+  expect(genDiff(fileJson3, fileYml4)).toEqual(testNested);
 });
