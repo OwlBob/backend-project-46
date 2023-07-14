@@ -21,22 +21,28 @@ const fileJson4 = './__fixtures__/file4.json';
 const fileYml3 = './__fixtures__/file3.yaml';
 const fileYml4 = './__fixtures__/file4.yaml';
 
-test('genDiff JSON', () => {
+const testPlain = readFile('resultPlain.txt');
+
+test('genDiff stylish: JSON', () => {
   expect(genDiff(fileJson1, fileJson2)).toEqual(testFile);
 });
-test('genDiff YML', () => {
+test('genDiff stylish: YML', () => {
   expect(genDiff(fileYml1, fileYml2)).toEqual(testFile);
 });
-test('genDiff JSON & YML', () => {
+test('genDiff stylish: JSON & YML', () => {
   expect(genDiff(fileJson1, fileYml2)).toEqual(testFile);
 });
 
-test('genDiff JSON nested files', () => {
+test('genDiff stylish: JSON nested files', () => {
   expect(genDiff(fileJson3, fileJson4)).toEqual(testNested);
 });
-test('genDiff YML nested files', () => {
+test('genDiff stylish: YML nested files', () => {
   expect(genDiff(fileYml3, fileYml4)).toEqual(testNested);
 });
-test('genDiff JSON & YML nested files', () => {
+test('genDiff stylish: JSON & YML nested files', () => {
   expect(genDiff(fileJson3, fileYml4)).toEqual(testNested);
+});
+
+test('genDiff plain: JSON & YML nested files', () => {
+  expect(genDiff(fileJson3, fileYml4, 'plain')).toEqual(testPlain);
 });
