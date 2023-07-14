@@ -12,24 +12,24 @@ const stringify = (value, depth) => {
   return `{\n${getKeys.join('\n')}\n  ${indent(depth)}}`;
 };
 
-const formatStylish = (odjTree) => {
+const formatStylish = (objTree) => {
   const step = (tree, depth) => tree.map((node) => {
     const getValue = (value, sign) => `${indent(depth)}${sign} ${node.key}: ${stringify(value, depth)}\n`;
     switch (node.status) {
       case 'nested':
         return `${indent(depth)}  ${node.key}: {\n${step(node.children, depth + 1).join('')}${indent(depth)}  }\n`;
-      case 'updated':
-        return `${getValue(node.value1, '-')}${getValue(node.value2, '+')}`;
-      case 'unchanged':
-        return getValue(node.value, ' ');
       case 'added':
         return getValue(node.value, '+');
       case 'deleted':
         return getValue(node.value, '-');
+      case 'unchanged':
+        return getValue(node.value, ' ');
+      case 'updated':
+        return `${getValue(node.value1, '-')}${getValue(node.value2, '+')}`;
       default:
         throw new Error(`This type does not exist: ${node.status}`);
     }
   });
-  return `{\n${step(odjTree, 1).join('')}}`;
+  return `{\n${step(objTree, 1).join('')}}`;
 };
 export default formatStylish;
