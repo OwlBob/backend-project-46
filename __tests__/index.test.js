@@ -13,12 +13,6 @@ const __dirname = path.dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-let obj;
-
-beforeEach(() => {
-  obj = [{ key: 'someone' }];
-});
-
 const testFile = readFile('result.txt');
 const fileJson1 = './__fixtures__/file1.json';
 const fileJson2 = './__fixtures__/file2.json';
@@ -67,13 +61,16 @@ test('check: invalid parsers', () => {
 });
 
 test('check: invalid format', () => {
+  const obj = [{ key: 'someone' }];
   expect(() => makeFormat(obj, 'lalalend')).toThrow("Format error: 'lalalend'");
 });
 
 test('check: invalid stylish', () => {
+  const obj = [{ key: 'someone' }];
   expect(() => stylish(obj)).toThrow('');
 });
 
 test('check: invalid plain', () => {
+  const obj = [{ key: 'someone' }];
   expect(() => plain(obj)).toThrow('');
 });
