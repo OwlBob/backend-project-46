@@ -2,12 +2,22 @@ import url from 'url';
 import fs from 'fs';
 import path from 'path';
 import genDiff from '../src/index.js';
+import parsers from '../src/parsers.js';
+import makeFormat from '../src/formatters/index.js';
+import plain from '../src/formatters/plain.js';
+import stylish from '../src/formatters/stylish';
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
+
+let obj;
+
+beforeEach(() => {
+  obj = [{ key: 'someone' }];
+});
 
 const testFile = readFile('result.txt');
 const fileJson1 = './__fixtures__/file1.json';
@@ -22,6 +32,7 @@ const fileYml3 = './__fixtures__/file3.yaml';
 const fileYml4 = './__fixtures__/file4.yaml';
 
 const testPlain = readFile('resultPlain.txt');
+const testJson = readFile('resultJson.txt');
 
 test('genDiff stylish: JSON', () => {
   expect(genDiff(fileJson1, fileJson2)).toEqual(testFile);
@@ -45,4 +56,24 @@ test('genDiff stylish: JSON & YML nested files', () => {
 
 test('genDiff plain: JSON & YML nested files', () => {
   expect(genDiff(fileJson3, fileYml4, 'plain')).toEqual(testPlain);
+});
+
+test('genDiff json: JSON & YML nested files', () => {
+  expect(genDiff(fileJson3, fileYml4, 'json')).toEqual(testJson);
+});
+
+test('check: invalid parsers', () => {
+  expect(() => parsers('oops')).toThrow("Unknown parsing format 'undefined'");
+});
+
+test('check: invalid format', () => {
+  expect(() => makeFormat(obj, 'lalalend')).toThrow("format error: 'lalalend'");
+});
+
+test('check: invalid stylish', () => {
+  expect(() => stylish(obj)).toThrow('');
+});
+
+test('check: invalid plain', () => {
+  expect(() => plain(obj)).toThrow('');
 });
