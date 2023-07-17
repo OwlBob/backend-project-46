@@ -27,7 +27,7 @@ const formatStylish = (objTree) => {
       case 'updated':
         return `${getValue(node.value1, '-')}${getValue(node.value2, '+')}`;
       default:
-        throw new Error(`This type does not exist: ${node.status}`);
+        throw new Error(`Not exist: ${node.status}`);
     }
   });
   return `{\n${step(objTree, 1).join('')}}`;

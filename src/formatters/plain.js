@@ -28,7 +28,7 @@ const formatPlain = (objTree) => {
         case 'updated':
           return `Property '${item}' was updated. From ${whatIsValue(node.value1)} to ${whatIsValue(node.value2)}`;
         default:
-          throw new Error(`This type does not exist: ${node.status}`);
+          throw new Error(`Not exist: ${node.status}`);
       }
     }).join('\n');
   return format(objTree, 0);

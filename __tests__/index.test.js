@@ -67,7 +67,7 @@ test('check: invalid parsers', () => {
 });
 
 test('check: invalid format', () => {
-  expect(() => makeFormat(obj, 'lalalend')).toThrow("format error: 'lalalend'");
+  expect(() => makeFormat(obj, 'lalalend')).toThrow("Format error: 'lalalend'");
 });
 
 test('check: invalid stylish', () => {

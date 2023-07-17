@@ -10,7 +10,7 @@ const makeFormat = (diffData, formatName = 'stylish') => {
     case 'json':
       return JSON.stringify(diffData);
     default:
-      throw new Error(`format error: '${formatName}'`);
+      throw new Error(`Format error: '${formatName}'`);
   }
 };
 
