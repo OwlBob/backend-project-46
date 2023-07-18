@@ -1,6 +1,6 @@
 import yaml from 'js-yaml';
 
-const getExtension = (data, format) => {
+const parse = (data, format) => {
   switch (format) {
     case 'json':
       return JSON.parse(data);
@@ -11,4 +11,5 @@ const getExtension = (data, format) => {
       throw new Error(`Unknown parsing format '${format}'`);
   }
 };
-export default getExtension;
+
+export default parse;

@@ -2,7 +2,7 @@ import url from 'url';
 import fs from 'fs';
 import path from 'path';
 import genDiff from '../src/index.js';
-import parsers from '../src/parsers.js';
+import parse from '../src/parsers.js';
 import makeFormat from '../src/formatters/index.js';
 import plain from '../src/formatters/plain.js';
 import stylish from '../src/formatters/stylish';
@@ -57,7 +57,7 @@ test('genDiff json: JSON & YML nested files', () => {
 });
 
 test('check: invalid parsers', () => {
-  expect(() => parsers('oops')).toThrow("Unknown parsing format 'undefined'");
+  expect(() => parse('oops')).toThrow("Unknown parsing format 'undefined'");
 });
 
 test('check: invalid format', () => {
