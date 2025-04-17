@@ -13,23 +13,36 @@
 
 В зависимости от ОС, выполните с помощью команды `npm link` установку
 (возможно, потребуется использование `sudo`).
+Или `npm ci`.
 
 Утилита проводящая сравнение изменений файлов.
 Изменения выводятся в форматах: stylish (по умолчанию), plain, json.
 
 Запуск утилиты через команду `gendiff`
 
+### 🙈🙉🙊
+
 ### Сравнение плоских файлов json:
-[![asciicast](https://asciinema.org/a/3yfTaYbPAbElp2WRavYVpCrpY.svg)](https://asciinema.org/a/3yfTaYbPAbElp2WRavYVpCrpY)
+команда: `gendiff __fixtures__/file1.json __fixtures__/file2.json`
+
+![json-json](https://github.com/OwlBob/backend-project-46/blob/main/__images__/1-json-json.png)
 
 ### Сравнение плоских файлов json и yml:
-[![asciicast](https://asciinema.org/a/vw97apT03LRNTGD4AfD8MhYZp.svg)](https://asciinema.org/a/vw97apT03LRNTGD4AfD8MhYZp)
+команда: `gendiff __fixtures__/file1.json __fixtures__/file2.yml`
+
+![json-yml](https://github.com/OwlBob/backend-project-46/blob/main/__images__/2-json-yml.png)
 
 ### Сравнение файлов с вложенной структурой json и yaml:
-[![asciicast](https://asciinema.org/a/XgHq359QjMaGd8V70XbqIDU5r.svg)](https://asciinema.org/a/XgHq359QjMaGd8V70XbqIDU5r)
+команда: `gendiff __fixtures__/file3.json __fixtures__/file4.yaml`
+
+![json-yaml](https://github.com/OwlBob/backend-project-46/blob/main/__images__/3-json-yaml.png)
 
 ### Сравнение файлов с вложенной структурой json и yaml, формат plain:
-[![asciicast](https://asciinema.org/a/gj0wwohuxla6XvSdOAnRHJCDQ.svg)](https://asciinema.org/a/gj0wwohuxla6XvSdOAnRHJCDQ)
+команда: `gendiff --format plain __fixtures__/file3.json __fixtures__/file4.yaml`
+
+![json-yaml format plain](https://github.com/OwlBob/backend-project-46/blob/main/__images__/4-json-yaml.png)
 
 ### Сравнение файлов с вложенной структурой json и yaml, формат json:
-[![asciicast](https://asciinema.org/a/Z2iy0gamrTe08lHXeILEiEqwC.svg)](https://asciinema.org/a/Z2iy0gamrTe08lHXeILEiEqwC)
+команда: `gendiff --format json __fixtures__/file3.json __fixtures__/file4.yaml`
+
+![json-yaml format json](https://github.com/OwlBob/backend-project-46/blob/main/__images__/5-json-yaml.png)
